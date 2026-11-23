@@ -148,6 +148,7 @@ UPROGS=\
 	$U/_wc\
 	$U/_zombie\
 	$U/_lotterytest\
+	$U/_ticketstest\
 	$U/_logstress\
 	$U/_forphan\
 	$U/_dorphan\
