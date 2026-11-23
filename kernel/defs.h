@@ -79,6 +79,7 @@ void            panic(char*) __attribute__((noreturn));
 void            printkinit(void);
 
 // proc.c
+
 int             cpuid(void);
 void            kexit(int);
 int             kfork(void);
@@ -98,6 +99,9 @@ void            sleep_prepare(void*);
 void            sleep(void);
 void            userinit(void);
 int             kwait(uint64);
+int             getpinfo_kernel(uint64);
+
+
 void            wakeup(void*);
 void            yield(void);
 int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
