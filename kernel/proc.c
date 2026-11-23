@@ -428,6 +428,18 @@ kwait(uint64 addr)
 //  - swtch to start running that process.
 //  - eventually that process transfers control
 //    via swtch back to the scheduler.
+
+static unsigned int rng_state = 2463534242U;
+
+unsigned int
+rand(void)
+{
+  rng_state ^= rng_state << 13;
+  rng_state ^= rng_state >> 17;
+  rng_state ^= rng_state << 5;
+  return rng_state;
+}
+
 void
 scheduler(void)
 {
