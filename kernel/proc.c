@@ -123,6 +123,8 @@ allocproc(void)
 
 found:
   p->pid = allocpid();
+  p->tickets = 1;
+  p->ticks = 0;
   p->state = USED;
 
   // Allocate a trapframe page.
@@ -274,6 +276,7 @@ kfork(void)
     return -1;
   }
   np->sz = p->sz;
+  np->tickets = p->tickets;
 
   // copy saved user registers.
   *(np->trapframe) = *(p->trapframe);
@@ -425,6 +428,18 @@ kwait(uint64 addr)
 //  - swtch to start running that process.
 //  - eventually that process transfers control
 //    via swtch back to the scheduler.
+
+static unsigned int rng_state = 2463534242U;
+
+unsigned int
+rand(void)
+{
+  rng_state ^= rng_state << 13;
+  rng_state ^= rng_state >> 17;
+  rng_state ^= rng_state << 5;
+  return rng_state;
+}
+
 void
 scheduler(void)
 {
